@@ -6,9 +6,28 @@
   <title>Library</title>
 </head>
 <body>
-  <ul class="js-library-items">
+  <ul class="js-library-items"></ul>
+  <button class="js-new-book">New Book</button>
 
-  </ul>
+  <dialog class="js-new-book-dialog">
+    <form>
+      <label for="title">Title:</label>
+      <input type="text" id="title">
+
+      <label for="author">Author:</label>
+      <input type="text" id="author">
+
+      <label for="pages">Number of pages:</label>
+      <input type="number" id="pages">
+
+      <label for="read">Already read? (true/false)</label>
+      <input type="text" id="read">
+
+      <button class="js-add-book">Add Book</button>
+
+      
+    </form>
+  </dialog>
   <script src="lib/script.js"></script>
 </body>
 </html>

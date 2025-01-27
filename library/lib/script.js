@@ -21,13 +21,47 @@ function addBookToLibrary (title, author, pages, read) {
 }
 
 
-addBookToLibrary("Shantaram", "Gregory David Roberts", 433, "twice");
+addBookToLibrary("Shantaram", "Gregory David Roberts", 433, "true");
 
-addBookToLibrary("Mongrel", "Hanako Footman", 352, "not yet");
+addBookToLibrary("Mongrel", "Hanako Footman", 352, "false");
 
 const libraryContainer = document.querySelector(".js-library-items");
 
-myLibrary.forEach((book) => {
-  console.log(book.info());
-  libraryContainer.innerHTML += `<li> ${book.info()} </li>`;
+function displayBooksInLibrary () {
+  myLibrary.forEach((book, book_index) => {
+    libraryContainer.innerHTML += `<li> ${book.info()}</li>`;
+  });
+}
+
+displayBooksInLibrary();
+
+const newBookButton = document.querySelector(".js-new-book");
+const dialog = document.querySelector(".js-new-book-dialog");
+const addBookButton = document.querySelector(".js-add-book");
+
+let titleFromInput = document.getElementById("title");
+let authorFromInput = document.getElementById("author");
+let pagesFromInput = document.getElementById("pages");
+let readFromInput = document.getElementById("read");
+
+
+newBookButton.addEventListener('click', () => {
+ dialog.showModal();
+});
+
+let inputElements = document.querySelectorAll("input");
+
+addBookButton.addEventListener("click", (event) => {
+  event.preventDefault();
+
+  addBookToLibrary(titleFromInput.value, authorFromInput.value, pagesFromInput.value, readFromInput.value);
+
+  libraryContainer.innerHTML = null;
+  displayBooksInLibrary();
+
+  inputElements.forEach((input) => {
+    input.value = "";
+  });
+
+  dialog.close();
 });
