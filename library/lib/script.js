@@ -11,10 +11,23 @@ function Book(title, author, pages, read) {
   this.read = read;
 
   this.info = function () {
-    return `${ this.title } by ${ this.author }, ${ this.pages } pages, ${ this.read }`;
+    return `${ this.title } by ${ this.author }, ${ this.pages } pages, read: ${ this.read }`;
   }
 }
 
-const myFavorite = new Book("Shantaram", "Gregory David Roberts", 433, "read twice");
+function addBookToLibrary (title, author, pages, read) {
+  const newBook = new Book(title, author, pages, read);
+  myLibrary.push(newBook);
+}
 
-console.log(myFavorite.info());
+
+addBookToLibrary("Shantaram", "Gregory David Roberts", 433, "twice");
+
+addBookToLibrary("Mongrel", "Hanako Footman", 352, "not yet");
+
+const libraryContainer = document.querySelector(".js-library-items");
+
+myLibrary.forEach((book) => {
+  console.log(book.info());
+  libraryContainer.innerHTML += `<li> ${book.info()} </li>`;
+});
