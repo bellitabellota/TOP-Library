@@ -22,15 +22,19 @@ function addBookToLibrary (title, author, pages, read) {
 
 
 addBookToLibrary("Shantaram", "Gregory David Roberts", 433, "true");
-
 addBookToLibrary("Mongrel", "Hanako Footman", 352, "false");
+addBookToLibrary("James", "Percival Everett", 320, "true");
+addBookToLibrary("The Insider", "Matthew Richardson", 325, "false");
 
 const libraryContainer = document.querySelector(".js-library-items");
 
 function displayBooksInLibrary () {
+  libraryContainer.innerHTML = null;
   myLibrary.forEach((book, book_index) => {
-    libraryContainer.innerHTML += `<li> ${book.info()}</li>`;
+    libraryContainer.innerHTML += `<li> ${book.info()} <button class="js-remove-button" data-book-index="${book_index}">Remove</button></li>`;
   });
+
+  addRemoveEventListener();
 }
 
 displayBooksInLibrary();
@@ -56,7 +60,6 @@ addBookButton.addEventListener("click", (event) => {
 
   addBookToLibrary(titleFromInput.value, authorFromInput.value, pagesFromInput.value, readFromInput.value);
 
-  libraryContainer.innerHTML = null;
   displayBooksInLibrary();
 
   inputElements.forEach((input) => {
@@ -65,3 +68,15 @@ addBookButton.addEventListener("click", (event) => {
 
   dialog.close();
 });
+
+function addRemoveEventListener () {
+  document.querySelectorAll(".js-remove-button").forEach((button) => {
+    button.addEventListener(("click"), () => {
+      myLibrary.splice(button.dataset.bookIndex, 1);
+  
+      displayBooksInLibrary();
+    }); 
+  });
+}
+
+
