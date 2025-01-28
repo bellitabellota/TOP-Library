@@ -13,6 +13,10 @@ function Book(title, author, pages, read) {
   this.info = function () {
     return `${ this.title } by ${ this.author }, ${ this.pages } pages, read: ${ this.read }`;
   }
+
+  this.toggleRead = function() {
+    this.read === "true" ? this.read = "false" : this.read = "true";
+  }
 }
 
 function addBookToLibrary (title, author, pages, read) {
@@ -31,10 +35,15 @@ const libraryContainer = document.querySelector(".js-library-items");
 function displayBooksInLibrary () {
   libraryContainer.innerHTML = null;
   myLibrary.forEach((book, book_index) => {
-    libraryContainer.innerHTML += `<li> ${book.info()} <button class="js-remove-button" data-book-index="${book_index}">Remove</button></li>`;
+
+    const toggleReadButtonText = book.read === "true" ? "Mark as not read" : "Mark as already read";
+
+    libraryContainer.innerHTML += `<li> ${book.info()} <button class="js-remove-button" data-book-index="${book_index}">Remove</button><button class="js-toggle-read" data-book-index="${book_index}">${toggleReadButtonText}</button></li></li>`;
   });
 
   addRemoveEventListener();
+  addToggleReadEventListener();
+  
 }
 
 displayBooksInLibrary();
@@ -76,6 +85,17 @@ function addRemoveEventListener () {
   
       displayBooksInLibrary();
     }); 
+  });
+}
+
+function addToggleReadEventListener() {
+  document.querySelectorAll(".js-toggle-read").forEach((button) => {
+    button.addEventListener("click", () => {
+      const book = myLibrary[button.dataset.bookIndex];
+      book.toggleRead();
+
+      displayBooksInLibrary();
+    });
   });
 }
 
